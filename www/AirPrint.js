@@ -1,13 +1,13 @@
 /**
- * Printer Plugin
+ * AirPrint
  */
 
 (function(cordova) {
 
-	function PrintPlugin() {}
+	function AirPrint() {}
 
-PrintPlugin.prototype.callbackMap = {};
-PrintPlugin.prototype.callbackIdx = 0;
+AirPrint.prototype.callbackMap = {};
+AirPrint.prototype.callbackIdx = 0;
 
 /*
  print      - html string or DOM node (if latter, innerHTML is used to get the contents). REQUIRED.
@@ -15,7 +15,7 @@ PrintPlugin.prototype.callbackIdx = 0;
  fail       - callback function called if print unsuccessful.  If print fails, {error: reason}. If printing not available: {available: false}
  options    -  {dialogOffset:{left: 0, right: 0}}. Position of popup dialog (iPad only).
  */
-PrintPlugin.prototype.print = function(printHTML, success, fail, options) {
+AirPrint.prototype.print = function(printHTML, success, fail, options) {
     if (typeof printHTML != 'string'){
         console.log("Print function requires an HTML string. Not an object");
         return;
@@ -46,38 +46,38 @@ PrintPlugin.prototype.print = function(printHTML, success, fail, options) {
     }
 
     var key = 'print' + this.callbackIdx++;
-    window.plugins.printPlugin.callbackMap[key] = {
+    window.plugins.airPrint.callbackMap[key] = {
         success: function(result) {
-            delete window.plugins.printPlugin.callbackMap[key];
+            delete window.plugins.airPrint.callbackMap[key];
             success(result);
         },
         fail: function(result) {
-            delete window.plugins.printPlugin.callbackMap[key];
+            delete window.plugins.airPrint.callbackMap[key];
             fail(result);
         },
     };
 
-    var callbackPrefix = 'window.plugins.printPlugin.callbackMap.' + key;
-    return cordova.exec(success, fail, "PrintPlugin","print", [printHTML, dialogLeftPos, dialogTopPos, callbackPrefix + '.success', callbackPrefix + '.fail']);
+    var callbackPrefix = 'window.plugins.airPrint.callbackMap.' + key;
+    return cordova.exec(success, fail, "AirPrint","print", [printHTML, dialogLeftPos, dialogTopPos, callbackPrefix + '.success', callbackPrefix + '.fail']);
 };
 
 /*
  * Callback function returns {available: true/false}
  */
-PrintPlugin.prototype.isPrintingAvailable = function(callback) {
+AirPrint.prototype.isPrintingAvailable = function(callback) {
     var key = 'isPrintingAvailable' + this.callbackIdx++;
-    window.plugins.printPlugin.callbackMap[key] = function(result) {
-        delete window.plugins.printPlugin.callbackMap[key];
+    window.plugins.airPrint.callbackMap[key] = function(result) {
+        delete window.plugins.airPrint.callbackMap[key];
         callback(result);
     };
 
-    var callbackName = 'window.plugins.printPlugin.callbackMap.' + key;
-    cordova.exec(null, null, "PrintPlugin", "isPrintingAvailable", callbackName);
+    var callbackName = 'window.plugins.airPrint.callbackMap.' + key;
+    cordova.exec(null, null, "AirPrint", "isPrintingAvailable", callbackName);
 };
 
 cordova.addConstructor(function() {
 		if(!window.plugins) window.plugins = {};
-		window.plugins.printPlugin = new PrintPlugin();
+		window.plugins.airPrint = new AirPrint();
 	});
 
 })(window.cordova || window.Cordova || window.PhoneGap);
