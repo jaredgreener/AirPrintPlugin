@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    id="com.pestroutes.plugins.AirPrint"
+    version="1">
+
+    <name>AirPrint</name>
+
+    <description>
+    This plugin allows you access to AirPrint Printers.
+    </description>
+
+    <!-- <engines>
+        <engine name="cordova" version=">=3.1.0" />
+    </engines> -->
+
+    <license>MIT</license>
+
+    <!-- android -->
+    <platform name="android">
+			<!--  NOT SUPPORTED!!		 -->
+    </platform>
+
+    <!-- ios -->
+    <platform name="ios">
+      <config-file target="config.xml" parent="/*">
+        <feature name="AirPrint">
+          <param name="ios-package" value="AirPrint"/>
+        </feature>
+      </config-file>
+
+      <js-module src="www/AirPrint.js" name="AirPrint">
+          <clobbers target="plugins.airPrint" />
+      </js-module>
+      
+      <header-file src="src/ios/AirPrint.h" target-dir="ios"/>
+      <source-file src="src/ios/AirPrint.m" target-dir="ios"/>
+
+    </platform>
+</plugin>
