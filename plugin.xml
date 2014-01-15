@@ -23,9 +23,7 @@
     <!-- ios -->
     <platform name="ios">
       <config-file target="config.xml" parent="/*">
-        <feature name="AirPrint">
-          <param name="ios-package" value="AirPrint"/>
-        </feature>
+
       </config-file>
 
       <js-module src="www/AirPrint.js" name="AirPrint">
