@@ -101,14 +101,9 @@
             if (!completed || error) {
                 [self callbackWithFuntion:self.failCallback withData:
                  [NSString stringWithFormat:@"{success: false, available: true, error: \"%@\"}", error.localizedDescription]];
-                
-//                [webViewPrint release];
-                
 			}
             else{
                 [self callbackWithFuntion:self.successCallback withData: @"{success: true, available: true}"];
-                
-//                [webViewPrint release];
             }
         };
         
